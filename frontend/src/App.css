@@ -1,107 +1,247 @@
-/* RESPONSIVE LAYOUT */
+/* ===== Global layout ===== */
+* {
+  box-sizing: border-box;
+}
 
-/* Prevent content from overflowing its container */
+html {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f3f7fc;
+  color: #102a56;
+  font-family: Inter, Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  text-align: left;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #f3f7fc;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 20;
+  width: 236px;
+  height: 100vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #082c60, #041b3c);
+  color: #fff;
+}
+
+.sidebar .brand {
+  color: #fff;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  color: #d5e2f5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sidebar nav a.active {
+  background: #1765d1;
+  color: #fff;
+}
+
+/* ===== Main content ===== */
 .main {
+  flex: 1;
   min-width: 0;
+  margin-left: 236px;
 }
 
 .content {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 24px;
   min-width: 0;
 }
 
+.page-heading {
+  margin-bottom: 24px;
+}
+
+.page-heading p {
+  margin: 0 0 10px;
+  color: #1765d1;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.page-heading h1 {
+  margin: 0 0 8px;
+  color: #092f68;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.page-heading span {
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ===== KPI cards ===== */
 .kpi-container {
+  display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
 }
 
-.kpi-card {
+.kpi-container>* {
   min-width: 0;
 }
 
-/* Laptop and tablet screens */
+/* ===== Tables and charts ===== */
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.content th,
+.content td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #edf1f7;
+  white-space: nowrap;
+}
+
+.content th {
+  background: #f3f7fc;
+  color: #526783;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.content td {
+  color: #334968;
+  font-size: 13px;
+}
+
+.content>* {
+  min-width: 0;
+}
+
+.content .recharts-responsive-container {
+  min-width: 0;
+}
+
+/* Prevent accidental text highlighting from making the UI look selected */
+body {
+  user-select: auto;
+}
+
+/* ===== Tablet ===== */
 @media (max-width: 1100px) {
+  .sidebar {
+    width: 205px;
+  }
+
+  .main {
+    margin-left: 205px;
+  }
+
   .content {
-    padding: 24px;
+    padding: 20px;
   }
 
   .kpi-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .page-heading h1 {
-    font-size: 28px;
   }
 }
 
-/* Mobile screens */
+/* ===== Mobile ===== */
 @media (max-width: 700px) {
   .sidebar {
     display: none;
   }
 
   .main {
-    margin-left: 0;
     width: 100%;
+    margin-left: 0;
   }
 
   .content {
     padding: 16px;
   }
 
-  .page-heading {
-    margin-bottom: 22px;
-  }
-
   .page-heading h1 {
-    font-size: 25px;
-  }
-
-  .page-heading span {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 27px;
   }
 
   .kpi-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
 
-  .kpi-card {
-    padding: 18px;
-  }
-
-  .transaction-section {
-    padding: 16px;
-    margin-top: 20px;
-  }
-
-  .section-header {
-    align-items: flex-start;
-    gap: 12px;
-    flex-direction: column;
-  }
-
-  .table-wrapper {
-    max-width: 100%;
-    overflow-x: auto;
-  }
-
-  table {
+  .content table {
     min-width: 650px;
   }
 }
 
-/* Very small mobile screens */
 @media (max-width: 400px) {
   .content {
     padding: 12px;
   }
 
   .page-heading h1 {
-    font-size: 22px;
+    font-size: 24px;
   }
+}
 
-  .kpi-card h2 {
-    font-size: 25px;
-  }
+/* Additional styles for the expanded dashboard sections */
+
+.compact-mode .content {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  background: #fff;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5eaf2;
+  white-space: nowrap;
+}
+
+.data-table th {
+  background: #f4f7fc;
+  color: #52627a;
+  font-weight: 700;
+}
+
+.data-table tbody tr:hover {
+  background: #f8faff;
 }
